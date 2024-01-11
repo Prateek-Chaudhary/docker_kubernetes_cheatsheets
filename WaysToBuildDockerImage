@@ -1,0 +1,38 @@
+Building docker image from dockerfile:
+  - First create jar of your project using terminal command : mvn clean install
+  - Now create docker file with suitable configuration for our project.
+  - Now build docker image using following command : 
+     - docker build <Dockerfile-path> -t dockerhub_username/<project_name>:<version_tag>  - if your Dockerfile present at diffent location.
+     - docker build . -t dockerhub_username/<project_name>:<version_tag>  - if your Dockerfile present at current location.
+  - Now you can run that created docker image.
+
+
+
+Building docker image using buildpacks:
+  - This command directly create docker image of your project from terminal using single command : mvn spring-boot:build-image
+  - But first you have to configure pom.xml file with few lines like : 
+      <plugins>
+        <plugin>
+          <configuration>
+            <image>
+              <name>docker_username/project_name:version-tag</name>
+            </image>
+          </configuration>
+        </plugin>
+      </plugins>
+
+
+
+Building docker image using google jib:
+  - By using perticular command we can directly create docker image from terminal command : mvn compile jib:dockerBuild
+  - First comfigure pom.xml file :
+      <plugin>
+			  <groupId>com.google.cloud.tools</groupId>
+			  <artifactId>jib-maven-plugin</artifactId>
+			  <version>3.3.2</version> // you can use latest jib version
+			  <configuration>
+			  	<to>
+			  		<image>docker_username/project_name:version-tag</image>
+			  	</to>
+			  </configuration>
+		  </plugin>
